@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<data>
+
+    <event b_name="Window_close">
+        <e_type>0</e_type> <e_info>0</e_info>
+    </event>
+
+    <event b_name="Fullscreen_toggle">
+        <e_type>5</e_type> <e_info>89</e_info>
+    </event>
+
+    <event b_name="Intro_Continue">
+        <e_type>5</e_type> <e_info>57</e_info>
+    </event>
+
+    <event b_name="Mouse_Left">
+        <e_type>9</e_type> <e_info>0</e_info>
+    </event>
+
+    <event b_name="Key_Escape">
+        <e_type>5</e_type>  <e_info>36</e_info>
+    </event>
+
+    <event b_name="Key_P">
+        <e_type>5</e_type>  <e_info>15</e_info>
+    </event>
+
+    <event b_name="Key_T">
+        <e_type>5</e_type>  <e_info>19</e_info>
+    </event>
+
+    <event b_name="Key_K">
+        <e_type>5</e_type>  <e_info>10</e_info>
+    </event>
+
+    <event b_name="Key_O">
+        <e_type>5</e_type>  <e_info>14</e_info>
+    </event>
+
+    <event b_name="Key_X">
+        <e_type>5</e_type>  <e_info>23</e_info>
+    </event>
+</data>
