@@ -30,6 +30,7 @@ public:
     EventManager* GetEventManager();
         
     sf::Vector2u GetWindowSize();
+    sf::FloatRect GetViewSpace();
 
     
 

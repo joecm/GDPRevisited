@@ -13,6 +13,7 @@ protected:
     StateManager* m_StateMgr;
     bool m_transparent;
     bool m_transcendent;
+    sf:: View m_view;
 
 public:
     BaseState (StateManager* l_StateManager) : m_StateMgr(l_StateManager),
@@ -47,5 +48,7 @@ public:
     StateManager* GetStateManager() const {
         return m_StateMgr;
     }
+
+    sf::View& GetView() {return m_view; }
 };
 #endif // __BASESTATE_H__

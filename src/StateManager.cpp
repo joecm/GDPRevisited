@@ -1,6 +1,6 @@
 #include "../include/StateManager.hpp"
 
-StateManager::StateManager(SharedContext* l_shared) : m_SharedContext(l_shared)
+StateManager::StateManager(SharedContext* l_shared) : m_Shared(l_shared)
 {
     RegisterState<State_Intro>(StateType::INTRO);
     RegisterState<State_MainMenu>(StateType::MAIN_MENU);
@@ -77,8 +77,11 @@ void StateManager::Draw()
             --itr;
         }
 
-        for (; itr !=m_States.end(); ++itr)
+        for (; itr !=m_States.end(); ++itr) 
+        {
+            m_Shared->m_wind->GetRenderWindow()->setView(itr->second->GetView());
             itr->second->Draw();
+        }
     }
     else {
         m_States.back().second->Draw();
@@ -96,7 +99,7 @@ void StateManager::ProcessRequest()
 
 SharedContext* StateManager::GetContext() const
 {
-    return m_SharedContext;
+    return m_Shared;
 }
 
 bool StateManager::HasState(const StateType& l_type)
@@ -116,7 +119,7 @@ bool StateManager::HasState(const StateType& l_type)
 
 void StateManager::SwitchTo(const StateType& l_type)
 {
-    m_SharedContext->m_eventManager->SetCurrentState(l_type);
+    m_Shared->m_eventManager->SetCurrentState(l_type);
     for (auto itr = m_States.begin(); itr != m_States.end(); ++itr)
     {
         if (itr->first == l_type)
@@ -127,6 +130,8 @@ void StateManager::SwitchTo(const StateType& l_type)
             m_States.erase(itr);
             m_States.emplace_back(tmp_Type, tmp_State);
             tmp_State->Activate();
+            // pass the State view to window (RenderWindow) via Context
+            m_Shared->m_wind->GetRenderWindow()->setView(tmp_State->GetView());
             return;
         }
     }
@@ -134,6 +139,8 @@ void StateManager::SwitchTo(const StateType& l_type)
     if (!m_States.empty()) { m_States.back().second->Deactivate(); }
     CreateState(l_type);
     m_States.back().second->Activate();
+    // pass the view to window via Context
+    m_Shared->m_wind->GetRenderWindow()->setView(m_States.back().second->GetView());
 }
 
 void StateManager::Remove(const StateType& l_type) 
@@ -149,6 +156,8 @@ void StateManager::CreateState(const StateType& l_type)
         return; // State no math in StateFactory (Register)
     }
     std::shared_ptr<BaseState> state = newState->second();
+    // Default view for all states
+    state->m_view = m_Shared->m_wind->GetRenderWindow()->getDefaultView();
     m_States.emplace_back(l_type, state);
     state->OnCreate();
 }

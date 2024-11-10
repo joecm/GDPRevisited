@@ -27,7 +27,7 @@ using StateFactory = std::unordered_map<StateType, std::function<std::shared_ptr
 
 class StateManager {
     private:
-        SharedContext* m_SharedContext; // will be created in Game Class
+        SharedContext* m_Shared; // will be created in Game Class
         StateContainer m_States; 
         TypeContainer m_ToRemove; // ensure smooth transitions
         StateFactory m_StateFactory;
